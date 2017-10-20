@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>推箱子 by 周炜</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style>
+        [v-cloak] {
+            width: 100%;
+            height: 600px;
+            background: url('/src/img/Loading-GIF-Image-18.gif') no-repeat center center;
+        }
+
+        [v-cloak]>div {
+            display: none;
+        }
+
+        ul,
+        li {
+            margin: 0px;
+            padding: 0px;
+            border: 0px;
+        }
+
+        li {
+            float: left;
+            list-style-type: none;
+            width: 61px;
+            height: 61px;
+            background: url("/src/img/green_road@2x.png");
+        }
+
+        .mapItem {}
+
+        .wall {
+            background: url("/src/img/green_tree@2x.png") no-repeat;
+        }
+
+        .people {
+            background: url("/src/img/boxman_down@2x.png") no-repeat;
+            background-size: contain;
+        }
+
+        .chest {
+            background: url("/src/img/box@2x.png") no-repeat;
+        }
+
+        .dot {
+            background: url("/src/img/balloon@2x.png") no-repeat;
+        }
+
+        .button {
+            position: fixed;
+            bottom: -30px;
+            left: 10px;
+            width: 580px;
+            height: 280px;
+            filter: alpha(Opacity=80);
+            -moz-opacity: 0.5;
+            opacity: 0.5;
+        }
+
+        #mapDiv {
+            margin: 0 auto;
+        }
+
+        ._1pg0 {
+            text-align: center;
+            color: #111;
+            position: absolute;
+            white-space: nowrap;
+            line-height: 1.6
+        }
+
+        ._1pg0.oW6K {
+            font-size: 16px
+        }
+
+        ._1pg0 span._1zCL {
+            position: absolute;
+            top: 39px;
+            left: 74px
+        }
+
+        ._1pg0 i {
+            display: block;
+            position: relative;
+            border: 1px solid #000;
+            border-radius: 50%;
+            box-shadow: 0 3px 3px rgba(0, 0, 0, .2)
+        }
+
+        ._1pg0 i:after,
+        ._1pg0 i:before {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 50%;
+            box-shadow: inset 0 5px 10px hsla(0, 0%, 100%, .8)
+        }
+
+        ._1pg0 i:after {
+            box-shadow: inset 0 -5px 10px rgba(0, 0, 0, .8)
+        }
+
+        ._1pg0 i._23aw:before {
+            box-shadow: inset 0 -3px 6px hsla(0, 0%, 100%, .6)
+        }
+
+        ._1pg0 i._23aw:after {
+            box-shadow: inset 0 5px 5px rgba(0, 0, 0, .6)
+        }
+
+        ._1pg0._23pZ i {
+            background: #5a65f1;
+            background: -webkit-gradient(linear, left top, left bottom, from(#6e77ef), to(#4652f3));
+            background: -moz-linear-gradient(top, #6e77ef, #6e77ef)
+        }
+
+        ._1pg0.RBZg i {
+            background: #2dc421;
+            background: -webkit-gradient(linear, left top, left bottom, from(#4bc441), to(#0ec400));
+            background: -moz-linear-gradient(top, #4bc441, #4bc441)
+        }
+
+        ._1pg0._3kg_ i {
+            background: #dd1a1a;
+            background: -webkit-gradient(linear, left top, left bottom, from(#dc3333), to(#de0000));
+            background: -moz-linear-gradient(top, #dc3333, #dc3333)
+        }
+
+        ._1pg0.p4fG i {
+            width: 100px;
+            height: 100px
+        }
+
+        ._1pg0._2TvZ i {
+            width: 60px;
+            height: 60px
+        }
+
+        ._1pg0.oW6K i {
+            width: 52px;
+            height: 52px;
+            box-shadow: 1px 1px 1px rgba(0, 0, 0, .2)
+        }
+
+        ._1pg0.oW6K i:after,
+        ._1pg0.oW6K i:before {
+            box-shadow: inset 0 3px 6px hsla(0, 0%, 100%, .8)
+        }
+
+        ._1pg0.oW6K i:after {
+            box-shadow: inset 0 -3px 6px rgba(0, 0, 0, .8)
+        }
+
+        ._1pg0.oW6K i._23aw:before {
+            box-shadow: inset 0 -1px 2px hsla(0, 0%, 100%, .6)
+        }
+
+        ._1pg0.oW6K i._23aw:after {
+            box-shadow: inset 0 3px 3px rgba(0, 0, 0, .7)
+        }
+
+        ._1pg0._2TvZ em {
+            display: block;
+            width: 0;
+            height: 0;
+            border: 8px solid;
+            border-color: transparent transparent #111;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -12px 0 0 -8px
+        }
+    </style>
+    <meta name="format-detection" content="telephone=no" />
+    <script>; (function () { var w = parseInt(window.screen.width), s = w / 640, u = navigator.userAgent.toLowerCase(), m = '<meta name="viewport" content="width=640,'; if (/android (\d+\.\d+)/.test(u)) { if (parseFloat(RegExp.$1) > 2.3) m += 'minimum-scale=' + s + ',maximum-scale=' + s + ','; } else { m += 'user-scalable=no,'; } m += 'target-densitydpi=device-dpi">'; document.write(m); }());</script>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div id="mapDiv">
+            <template v-for="(yItem,y) in Map">
+                <ul>
+                    <li v-for="(xItem,x) in yItem" @click="SetRole(y,x)">
+                        <div :class="getRoleClass(xItem)" style="width:100%;height:100%;" :title="xItem" :key="y + '-' + x"></div>
+                    </li>
+                </ul>
+                <div style="clear:both;"></div>
+            </template>
+        </div>
+
+        <div class="button J9SA" style="margin-top: 20px;" :hidden="IsDesign">
+            <div class="_1pg0 _23pZ _2TvZ" style="top: 0px; left: 440px;" @click="Up">
+                <i class="" style="margin-top:20px;"></i>
+                <em style="transform: translate(0px, 63px) scale(1, 2); margin-top:-22px;"></em>
+                <span class="_1zCL">上</span>
+            </div>
+            <div class="_1pg0 _23pZ _2TvZ" style="top: 160px; left: 440px;" @click="Down">
+                <i class="" ></i>
+                <em style="transform: translate(0px, -71px) rotate(180deg) scale(1, 2);margin-top: 6px;"></em>
+                <span class="">下</span>
+            </div>
+            <div class="_1pg0 _23pZ _2TvZ" style="top: 90px; left: 350px;" @click="Left">
+                <i class="" style="margin-left:20px;"></i>
+                <em style="transform: translate(60px, -12px) rotate(270deg) scale(1, 2);margin-left: -15px;"></em>
+                <span class="">左</span>
+            </div>
+            <div class="_1pg0 _23pZ _2TvZ" style="top: 90px; left: 510px;" @click="Right">
+                <i class=""></i>
+                <em style="transform: translate(-60px, -12px) rotate(90deg) scale(1, 2);margin-left: 8px;"></em>
+                <span class="">右</span>
+            </div>
+            <div class="_1pg0 _23pZ p4fG" style="top: 100px; left: 85px;" @click="Reload">
+                <i class="" style="font-size: 64px;">{{Pace}}</i>
+                <span class="">重置当前关卡</span>
+            </div>
+            <div class="_1pg0 _3kg_ oW6K" style="top: 0px; left: 196px;" @click="Reset">
+                <i class=""></i>
+                <span class="">第一关</span>
+            </div>
+            <!-- <div class="_1pg0 RBZg oW6K" style="top: 0px; left: 106px;" @click="">
+                <i class=""></i>
+                <span class="">Sound(S)</span>
+            </div> -->
+            <div class="_1pg0 RBZg oW6K" style="top: 0px; left: 16px;" @click="Look">
+                <i class="" style="font-size: 33px;">{{Level}}</i>
+                <span class="">{{IsLook ? "取消选择" : "选择关卡"}}</span>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/src/lib/require/require.js" lang="utf-8"></script>
+    <script src="/src/lib/require/config.js" lang="utf-8"></script>
+    <script src="/src/js/chest.js" lang="utf-8"></script>
+</body>
+
+</html>

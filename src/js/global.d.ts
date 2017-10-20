@@ -1,0 +1,1 @@
+declare function require(a: string[], b: any);
