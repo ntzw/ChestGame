@@ -147,7 +147,7 @@ class People {
 总的来说，用TypeScript来开发JavaScript项目，是一个不错的选择，既有了类型检查，又不会失去JavaScript语言的灵活性。在加上VS Code IDE的智能感知，开发起来方便快速。
 
 [GitHub](https://github.com/ntzw/ChestGame)
-[演示地址](http://animebz.com/game/chest.html)
+[演示地址](http://blog.animebz.com/game/chest.html)
 
 
 
